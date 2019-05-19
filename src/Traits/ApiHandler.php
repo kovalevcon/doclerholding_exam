@@ -2,6 +2,7 @@
 namespace Traits;
 
 use Exceptions\ApiResponseException;
+use Language\ApiCall;
 
 /**
  * Trait for work with API
@@ -34,5 +35,29 @@ trait ApiHandler
                 sprintf("Wrong response api call; response:%s; source:%s", json_encode($result), $source)
             );
         }
+    }
+
+    /**
+     * Api call gets the language file for the given language and stores it.
+     *
+     * @param string $language
+     * @return string
+     * @throws ApiResponseException
+     */
+    public function apiCallLanguageFile(string $language): string
+    {
+        /** @var array $result */
+        $result = ApiCall::call(
+            'system_api',
+            'language_api',
+            [
+                'system' => 'LanguageFiles',
+                'action' => 'getLanguageFile'
+            ],
+            ['language' => $language]
+        );
+        $this->checkForApiErrorResult($result, __METHOD__);
+
+        return $result['data'];
     }
 }

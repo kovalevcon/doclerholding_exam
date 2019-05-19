@@ -17,7 +17,8 @@
             "Language\\": "src/",
             "Exceptions\\": "src/Exceptions",
             "Helpers\\": "src/Helpers",
-            "Traits\\": "src/Traits"
+            "Traits\\": "src/Traits",
+            "Workers\\": "src/Workers"
         }
     },
     "require-dev": {

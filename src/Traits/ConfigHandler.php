@@ -19,7 +19,7 @@ trait ConfigHandler
      * @return array|string
      * @throws ConfigException
      */
-    private function getConfigDataViaKey(string $key)
+    public function getConfigDataViaKey(string $key)
     {
         /** @var array|string $data */
         $data = Config::get($key);
@@ -28,5 +28,17 @@ trait ConfigHandler
         }
 
         return $data;
+    }
+
+    /**
+     * Gets the directory of the cached language files.
+     *
+     * @param string $application The application.
+     * @param $language
+     * @return string   The directory of the cached language files.
+     */
+    public function getLanguageFilePath($application, $language)
+    {
+        return Config::get('system.paths.root') . "/cache/{$application}/{$language}.php";
     }
 }
