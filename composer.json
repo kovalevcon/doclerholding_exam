@@ -13,7 +13,12 @@
         "php": "^7.2"
     },
     "autoload": {
-        "psr-4": {"Language\\": "src/"}
+        "psr-4": {
+            "Language\\": "src/",
+            "Exceptions\\": "src/Exceptions",
+            "Helpers\\": "src/Helpers",
+            "Traits\\": "src/Traits"
+        }
     },
     "require-dev": {
         "phpunit/phpunit": "^8.1",
