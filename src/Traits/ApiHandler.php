@@ -60,4 +60,58 @@ trait ApiHandler
 
         return $result['data'];
     }
+
+    /**
+     * Api call gets the available languages for the given applet.
+     *
+     * @param string $applet
+     * @return array
+     * @throws ApiResponseException
+     */
+    public function apiCallAppletLanguages(string $applet): array
+    {
+        /** @var array $result */
+        $result = ApiCall::call(
+            'system_api',
+            'language_api',
+            [
+                'system' => 'LanguageFiles',
+                'action' => 'getAppletLanguages'
+            ],
+            ['applet' => $applet]
+        );
+
+        $this->checkForApiErrorResult($result, __METHOD__);
+
+        return $result['data'];
+    }
+
+    /**
+     * Gets a language xml for an applet.
+     *
+     * @param string $applet
+     * @param string $language
+     * @return string
+     * @throws ApiResponseException
+     */
+    public function apiCallAppletLanguageFile(string $applet, string $language): string
+    {
+        /** @var array $result */
+        $result = ApiCall::call(
+            'system_api',
+            'language_api',
+            [
+                'system' => 'LanguageFiles',
+                'action' => 'getAppletLanguageFile'
+            ],
+            [
+                'applet'    => $applet,
+                'language'  => $language
+            ]
+        );
+
+        $this->checkForApiErrorResult($result, __METHOD__);
+
+        return $result['data'];
+    }
 }

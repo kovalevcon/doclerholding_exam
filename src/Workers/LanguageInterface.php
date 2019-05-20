@@ -15,4 +15,13 @@ interface LanguageInterface
      * @return void
      */
     public function generateFiles(): void;
+
+    /**
+     * Save generated language file.
+     *
+     * @param string $app Application or applet
+     * @param string $language
+     * @return void
+     */
+    public function saveFile(string $app, string $language): void;
 }

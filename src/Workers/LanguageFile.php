@@ -15,7 +15,7 @@ use Traits\FileSystemHandler;
  * Class LanguageFile
  * @package Workers
  */
-class LanguageFile implements LanguageInterface, LanguageFileInterface
+class LanguageFile implements LanguageInterface
 {
     use ApiHandler, ConfigHandler, FileSystemHandler;
 
@@ -40,11 +40,11 @@ class LanguageFile implements LanguageInterface, LanguageFileInterface
     /**
      * @inheritDoc
      */
-    public function saveFile(string $application, string $language): void
+    public function saveFile(string $app, string $language): void
     {
         try {
             /** @var string $result */
-            $filename = $this->getLanguageFilePath($application, $language);
+            $filename = $this->getLanguageFilePath($app, $language);
             $this->writeFile($filename, $this->apiCallLanguageFile($language));
             Log::success("Created `{$language}` language file: {$filename}");
         } catch (ApiResponseException $e) {

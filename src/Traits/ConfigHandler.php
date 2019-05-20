@@ -31,14 +31,27 @@ trait ConfigHandler
     }
 
     /**
-     * Gets the directory of the cached language files.
+     * Gets the path to file the cached language files.
      *
      * @param string $application The application.
-     * @param $language
+     * @param string $language
      * @return string   The directory of the cached language files.
+     * @throws ConfigException
      */
-    public function getLanguageFilePath($application, $language)
+    public function getLanguageFilePath(string $application, string $language): string
     {
-        return Config::get('system.paths.root') . "/cache/{$application}/{$language}.php";
+        return $this->getConfigDataViaKey('system.paths.root') . "/cache/{$application}/{$language}.php";
+    }
+
+    /**
+     * Get the directory of the cached flash
+     *
+     * @param string $language
+     * @return string
+     * @throws ConfigException
+     */
+    public function getFlashFilePath(string $language): string
+    {
+        return $this->getConfigDataViaKey('system.paths.root') . "/cache/flash/lang_{$language}.xml";
     }
 }

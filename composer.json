@@ -17,6 +17,7 @@
             "Language\\": "src/",
             "Exceptions\\": "src/Exceptions",
             "Helpers\\": "src/Helpers",
+            "Tests\\": "tests",
             "Traits\\": "src/Traits",
             "Workers\\": "src/Workers"
         }

@@ -29,6 +29,9 @@ trait FileSystemHandler
     public function writeFile($dest, $data): bool
     {
         $this->checkDir($dest);
-        return (bool)file_put_contents($dest, $data);
+        /** @var int|bool $result */
+        $result = file_put_contents($dest, $data);
+
+        return is_string($data) ? strlen($data) === $result : is_int($result);
     }
 }

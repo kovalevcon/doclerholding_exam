@@ -32,8 +32,9 @@ class Log
      *
      * @param string $method
      * @param array $args
+     * @return void
      */
-    public static function __callStatic(string $method, array $args)
+    public static function __callStatic(string $method, array $args): void
     {
         /* @var \Closure $formatter */
         /**
