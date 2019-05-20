@@ -59,9 +59,7 @@ class LanguageFileTest extends TestCase
         $result = $this->instance->apiCallLanguageFile($this->incomeValues['language']);
         /** @var array $resultTrue */
         $resultTrue = ApiCall::call(...(ConfigParams::callLanguageFileParams($this->incomeValues['language'])));
-        $this->assertTrue(
-            $this->instance->apiCallLanguageFile($this->incomeValues['language']) === $resultTrue['data']
-        );
+        $this->assertTrue($result === $resultTrue['data']);
 
         return $result;
     }
@@ -77,9 +75,7 @@ class LanguageFileTest extends TestCase
     public function testSuccessSaveFile(string $filename, string $result)
     {
         $this->instance->saveFile(...(array_values($this->incomeValues)));
-        $this->assertTrue(
-            file_get_contents($filename) === $result
-        );
+        $this->assertTrue(file_get_contents($filename) === $result);
     }
 
     /**

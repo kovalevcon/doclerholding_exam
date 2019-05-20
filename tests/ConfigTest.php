@@ -1,6 +1,7 @@
 <?php
 namespace Tests;
 
+use Helpers\ConfigParams;
 use Language\Config;
 use PHPUnit\Framework\TestCase;
 
@@ -30,7 +31,7 @@ class ConfigTest extends TestCase
     public function testNotEmptyKeyPathRoot(): string
     {
         /** @var string $result */
-        $result = Config::get('system.paths.root');
+        $result = Config::get(ConfigParams::SYSTEM_PATH_ROOT);
         $this->assertNotEmpty($result);
 
         return $result;
@@ -58,7 +59,7 @@ class ConfigTest extends TestCase
     public function testNotEmptyKeyTranslatedApplications(): array
     {
         /** @var array $result */
-        $result = Config::get('system.translated_applications');
+        $result = Config::get(ConfigParams::SYSTEM_TRANS_APPS);
         $this->assertNotEmpty($result);
 
         return $result;

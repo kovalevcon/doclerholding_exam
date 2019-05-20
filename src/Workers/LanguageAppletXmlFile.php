@@ -4,9 +4,6 @@ namespace Workers;
 use Exception;
 use Exceptions\ConfigException;
 use Helpers\Log;
-use Traits\ApiHandler;
-use Traits\ConfigHandler;
-use Traits\FileSystemHandler;
 
 /**
  * Class realize all business logic for work with LanguageAppletXmlFile
@@ -14,10 +11,8 @@ use Traits\FileSystemHandler;
  * Class LanguageAppletXmlFile
  * @package Workers
  */
-class LanguageAppletXmlFile implements LanguageInterface
+class LanguageAppletXmlFile extends LanguageBase
 {
-    use ApiHandler, ConfigHandler, FileSystemHandler;
-
     /** @var array $applets */
     protected $applets;
 
@@ -53,8 +48,10 @@ class LanguageAppletXmlFile implements LanguageInterface
     public function saveFile(string $app, string $language): void
     {
         try {
-            $xmlContent = $this->apiCallAppletLanguageFile($app, $language);
-            $this->writeFile($this->getFlashFilePath($language), $xmlContent);
+            $this->writeFile(
+                $this->getFlashFilePath($language),
+                $this->apiCallAppletLanguageFile($app, $language)
+            );
         } catch (ConfigException $e) {
             $e->report();
         } catch (Exception $e) {

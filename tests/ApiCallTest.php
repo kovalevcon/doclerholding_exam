@@ -1,6 +1,7 @@
 <?php
 namespace Tests;
 
+use Helpers\ConfigParams;
 use Language\ApiCall;
 use PHPUnit\Framework\TestCase;
 
@@ -33,14 +34,9 @@ class ApiCallTest extends TestCase
      */
     public function testNotEmptyGetLanguageFile()
     {
+        /** @var array $result */
         $result = ApiCall::call(
-            'system_api',
-            'language_api',
-            [
-                'system' => 'LanguageFiles',
-                'action' => 'getLanguageFile'
-            ],
-            ['language' => 'en']
+            ...(ConfigParams::callLanguageFileParams('en'))
         );
         $this->assertNotEmpty($result);
 
@@ -71,14 +67,9 @@ class ApiCallTest extends TestCase
      */
     public function testNotEmptyGetAppletLanguages()
     {
+        /** @var array $correctResult */
         $result = ApiCall::call(
-            'system_api',
-            'language_api',
-            [
-                'system' => 'LanguageFiles',
-                'action' => 'getAppletLanguages'
-            ],
-            ['applet' => 'JSM2_MemberApplet']
+            ...(ConfigParams::callAppletFileParams('JSM2_MemberApplet'))
         );
         $this->assertNotEmpty($result);
 
@@ -109,17 +100,9 @@ class ApiCallTest extends TestCase
      */
     public function testNotEmptyGetAppletLanguageFile()
     {
+        /** @var string $correctResult */
         $result = ApiCall::call(
-            'system_api',
-            'language_api',
-            [
-                'system' => 'LanguageFiles',
-                'action' => 'getAppletLanguageFile'
-            ],
-            [
-                'applet'    => 'JSM2_MemberApplet',
-                'language'  => 'en'
-            ]
+            ...(ConfigParams::callAppletLanguageFileParams('JSM2_MemberApplet', 'en'))
         );
         $this->assertNotEmpty($result);
 

@@ -6,9 +6,6 @@ use Exceptions\ApiResponseException;
 use Exceptions\ConfigException;
 use Helpers\ConfigParams;
 use Helpers\Log;
-use Traits\ApiHandler;
-use Traits\ConfigHandler;
-use Traits\FileSystemHandler;
 
 /**
  * Class realize all business logic for work with LanguageFile
@@ -16,10 +13,8 @@ use Traits\FileSystemHandler;
  * Class LanguageFile
  * @package Workers
  */
-class LanguageFile implements LanguageInterface
+class LanguageFile extends LanguageBase
 {
-    use ApiHandler, ConfigHandler, FileSystemHandler;
-
     /**
      * @inheritDoc
      */
