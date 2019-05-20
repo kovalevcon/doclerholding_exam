@@ -4,6 +4,7 @@ namespace Workers;
 use Exception;
 use Exceptions\ApiResponseException;
 use Exceptions\ConfigException;
+use Helpers\ConfigParams;
 use Helpers\Log;
 use Traits\ApiHandler;
 use Traits\ConfigHandler;
@@ -25,7 +26,7 @@ class LanguageFile implements LanguageInterface
     public function generateFiles(): void
     {
         try {
-            foreach ($this->getConfigDataViaKey('system.translated_applications') as $application => $languages) {
+            foreach ($this->getConfigDataViaKey(ConfigParams::SYSTEM_TRANS_APPS) as $application => $languages) {
                 foreach ($languages as $language) {
                     $this->saveFile($application, $language);
                 }

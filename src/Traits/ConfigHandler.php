@@ -2,6 +2,7 @@
 namespace Traits;
 
 use Exceptions\ConfigException;
+use Helpers\ConfigParams;
 use Language\Config;
 
 /**
@@ -40,7 +41,7 @@ trait ConfigHandler
      */
     public function getLanguageFilePath(string $application, string $language): string
     {
-        return $this->getConfigDataViaKey('system.paths.root') . "/cache/{$application}/{$language}.php";
+        return $this->getConfigDataViaKey(ConfigParams::SYSTEM_PATH_ROOT) . "/cache/{$application}/{$language}.php";
     }
 
     /**
@@ -52,6 +53,6 @@ trait ConfigHandler
      */
     public function getFlashFilePath(string $language): string
     {
-        return $this->getConfigDataViaKey('system.paths.root') . "/cache/flash/lang_{$language}.xml";
+        return $this->getConfigDataViaKey(ConfigParams::SYSTEM_PATH_ROOT) . "/cache/flash/lang_{$language}.xml";
     }
 }

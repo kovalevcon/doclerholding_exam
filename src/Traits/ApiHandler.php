@@ -2,6 +2,7 @@
 namespace Traits;
 
 use Exceptions\ApiResponseException;
+use Helpers\ConfigParams;
 use Language\ApiCall;
 
 /**
@@ -46,19 +47,7 @@ trait ApiHandler
      */
     public function apiCallLanguageFile(string $language): string
     {
-        /** @var array $result */
-        $result = ApiCall::call(
-            'system_api',
-            'language_api',
-            [
-                'system' => 'LanguageFiles',
-                'action' => 'getLanguageFile'
-            ],
-            ['language' => $language]
-        );
-        $this->checkForApiErrorResult($result, __METHOD__);
-
-        return $result['data'];
+        return $this->apiCallRequest(ConfigParams::callLanguageFileParams($language));
     }
 
     /**
@@ -72,13 +61,7 @@ trait ApiHandler
     {
         /** @var array $result */
         $result = ApiCall::call(
-            'system_api',
-            'language_api',
-            [
-                'system' => 'LanguageFiles',
-                'action' => 'getAppletLanguages'
-            ],
-            ['applet' => $applet]
+            ...(ConfigParams::callAppletFileParams($applet))
         );
 
         $this->checkForApiErrorResult($result, __METHOD__);
@@ -98,18 +81,25 @@ trait ApiHandler
     {
         /** @var array $result */
         $result = ApiCall::call(
-            'system_api',
-            'language_api',
-            [
-                'system' => 'LanguageFiles',
-                'action' => 'getAppletLanguageFile'
-            ],
-            [
-                'applet'    => $applet,
-                'language'  => $language
-            ]
+            ...(ConfigParams::callAppletLanguageFileParams($applet, $language))
         );
 
+        $this->checkForApiErrorResult($result, __METHOD__);
+
+        return $result['data'];
+    }
+
+    /**
+     * Send Api Call request
+     *
+     * @param array $params
+     * @return array|string
+     * @throws \Exceptions\ApiResponseException
+     */
+    private function apiCallRequest(array $params)
+    {
+        /** @var array $result */
+        $result = ApiCall::call(...$params);
         $this->checkForApiErrorResult($result, __METHOD__);
 
         return $result['data'];
