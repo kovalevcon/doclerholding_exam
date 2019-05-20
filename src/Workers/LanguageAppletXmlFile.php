@@ -30,6 +30,7 @@ class LanguageAppletXmlFile extends LanguageBase
     public function generateFiles(): void
     {
         try {
+            Log::info("Start process of generate applet language xml files.");
             foreach ($this->applets as $appletDirectory => $appletLanguageId) {
                 /** @var array $languages */
                 $languages = $this->apiCallAppletLanguages($appletLanguageId);
@@ -38,7 +39,9 @@ class LanguageAppletXmlFile extends LanguageBase
                 }
             }
         } catch (Exception $e) {
-            Log::error("Unexpected application error: {$e->getMessage()}");
+            Log::error("Unexpected application error: {$e->getMessage()}.");
+        } finally {
+            Log::info("End process of generate applet language xml files.");
         }
     }
 
@@ -48,14 +51,17 @@ class LanguageAppletXmlFile extends LanguageBase
     public function saveFile(string $app, string $language): void
     {
         try {
+            /** @var string $filename */
+            $filename = $this->getFlashFilePath($language);
             $this->writeFile(
-                $this->getFlashFilePath($language),
+                $filename,
                 $this->apiCallAppletLanguageFile($app, $language)
             );
+            Log::success("Created applet language file: {$filename}.");
         } catch (ConfigException $e) {
             $e->report();
         } catch (Exception $e) {
-            Log::error("Unexpected application error: {$e->getMessage()}");
+            Log::error("Unexpected application error: {$e->getMessage()}.");
         }
     }
 }

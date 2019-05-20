@@ -21,6 +21,7 @@ class LanguageFile extends LanguageBase
     public function generateFiles(): void
     {
         try {
+            Log::info("Start process of generate language files.");
             foreach ($this->getConfigDataViaKey(ConfigParams::SYSTEM_TRANS_APPS) as $application => $languages) {
                 foreach ($languages as $language) {
                     $this->saveFile($application, $language);
@@ -29,7 +30,9 @@ class LanguageFile extends LanguageBase
         } catch (ConfigException $e) {
             $e->report();
         } catch (Exception $e) {
-            Log::error("Unexpected application error: {$e->getMessage()}");
+            Log::error("Unexpected application error: {$e->getMessage()}.");
+        } finally {
+            Log::info("End process of generate language files.");
         }
     }
 
@@ -42,11 +45,11 @@ class LanguageFile extends LanguageBase
             /** @var string $result */
             $filename = $this->getLanguageFilePath($app, $language);
             $this->writeFile($filename, $this->apiCallLanguageFile($language));
-            Log::success("Created `{$language}` language file: {$filename}");
+            Log::success("Created `{$language}` language file: {$filename}.");
         } catch (ApiResponseException $e) {
-            Log::error("Api response error: {$e->getMessage()}");
+            Log::error("Api response error: {$e->getMessage()}; app:{$app}; language:{$language}.");
         } catch (Exception $e) {
-            Log::error("Unexpected application error: {$e->getMessage()}");
+            Log::error("Unexpected application error: {$e->getMessage()}.");
         }
     }
 }

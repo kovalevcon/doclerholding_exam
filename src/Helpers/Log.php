@@ -47,8 +47,10 @@ class Log
             return;
         };
 
-        in_array($method, self::$levels) ?
-            $formatter($method, $args) : $formatter(self::ERROR_LEVEL, 'Undefined method name for Log class')
-        ;
+        if (php_sapi_name() !== 'cli') {
+            in_array($method, self::$levels) ?
+                $formatter($method, $args) : $formatter(self::ERROR_LEVEL, 'Undefined method name for Log class')
+            ;
+        }
     }
 }
